@@ -1,0 +1,25 @@
+{
+  "name": "kurly",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/AlexanderProd/kurly.git",
+  "author": "michel <michel.strelow97@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel src -d dist",
+    "start": "yarn build && cross-env DEV=false node dist/index.js",
+    "start:dev": "cross-env DEV=true nodemon --exec babel-node src/index.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/node": "^7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "command-line-args": "^5.0.2",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.9.0",
+    "nodemon": "^1.18.7"
+  }
+}
