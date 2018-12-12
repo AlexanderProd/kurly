@@ -25,13 +25,17 @@ const curl = ({
 progress.start(options.connections, 0);
 
 const curls = [];
+let failed = 0;
 
 for (let i = 0; i < options.connections; i++) {
   const { ip, port, protocol } = options;
   progress.update(i + 1);
   curls.push(
-    curl({ ip, port, protocol }),
+    curl({ ip, port, protocol }).catch(() => failed++),
   );
 }
 
-Promise.all(curls).finally(() => progress.stop());
+Promise.all(curls).finally(() => {
+  progress.stop();
+  console.error(`${failed} connections failed`);
+});
