@@ -1,6 +1,8 @@
 import childProcess from 'child_process';
 import { promisify } from 'util';
 import commandLineArgs from 'command-line-args';
+import { Bar, Presets } from 'cli-progress';
+
 
 const optionDefinitions = [
   { name: 'ip', alias: 'i', type: String },
@@ -13,13 +15,26 @@ const options = commandLineArgs(optionDefinitions);
 
 const exec = promisify(childProcess.exec);
 
+const progress = new Bar({}, Presets.shades_classic);
+
 const curl = ({
   protocol = 'http',
   ip,
   port,
 }) => exec(`curl ${protocol}://${ip}:${port}`);
 
+progress.start(options.connections, 0);
+
+const curls = [];
+let progressCount = 0;
+
 for (let i = 0; i < options.connections; i++) {
   const { ip, port, protocol } = options;
-  curl({ ip, port, protocol }).then(() => console.log(i));
+  curls.push(
+    curl({ ip, port, protocol }).then(() => {
+      progress.update(++progressCount);
+    }),
+  );
 }
+
+Promise.all(curls).then(() => progress.stop());
