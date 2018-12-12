@@ -3,7 +3,6 @@ import { promisify } from 'util';
 import commandLineArgs from 'command-line-args';
 import { Bar, Presets } from 'cli-progress';
 
-
 const optionDefinitions = [
   { name: 'ip', alias: 'i', type: String },
   { name: 'port', alias: 'p', type: Number, defaulOption: 80 },
@@ -26,15 +25,13 @@ const curl = ({
 progress.start(options.connections, 0);
 
 const curls = [];
-let progressCount = 0;
 
 for (let i = 0; i < options.connections; i++) {
   const { ip, port, protocol } = options;
+  progress.update(i + 1);
   curls.push(
-    curl({ ip, port, protocol }).then(() => {
-      progress.update(++progressCount);
-    }),
+    curl({ ip, port, protocol }),
   );
 }
 
-Promise.all(curls).then(() => progress.stop());
+Promise.all(curls).finally(() => progress.stop());
