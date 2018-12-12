@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import childProcess from 'child_process';
 import { promisify } from 'util';
 import commandLineArgs from 'command-line-args';

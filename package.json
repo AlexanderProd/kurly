@@ -5,10 +5,13 @@
   "repository": "https://github.com/AlexanderProd/kurly.git",
   "author": "michel <michel.strelow97@gmail.com>",
   "license": "MIT",
+  "bin": {
+    "kurly": "dist/index.js"
+  },
   "scripts": {
+    "prepare": "npm run build",
     "build": "babel src -d dist",
-    "start": "yarn build && cross-env DEV=false node dist/index.js",
-    "start:dev": "cross-env DEV=true nodemon --exec babel-node src/index.js"
+    "start": "yarn build && node dist/index.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",
