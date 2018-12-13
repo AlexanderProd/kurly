@@ -9,7 +9,7 @@
     "kurly": "dist/index.js"
   },
   "scripts": {
-    "prepare": "babel src -d dist",
+    "prepare": "npm run build",
     "build": "babel src -d dist",
     "start": "yarn build && node dist/index.js"
   },
@@ -21,7 +21,6 @@
     "babel-eslint": "^10.0.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "command-line-args": "^5.0.2",
-    "cross-env": "^5.2.0",
     "eslint": "^5.9.0",
     "nodemon": "^1.18.7"
   },
