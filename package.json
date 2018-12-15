@@ -9,7 +9,7 @@
     "kurly": "dist/index.js"
   },
   "scripts": {
-    "postinstall": "npm run build",
+    "prepare": "npm run build",
     "build": "babel src -d dist",
     "start": "yarn build && node dist/index.js"
   },
